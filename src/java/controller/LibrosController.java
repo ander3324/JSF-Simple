@@ -10,8 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
+import javax.faces.bean.RequestScoped;
 import orm.Libros;
 
 /**
@@ -19,7 +18,7 @@ import orm.Libros;
  * @author ander
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class LibrosController {
 
     //Objetos necesarios:
@@ -33,6 +32,7 @@ public class LibrosController {
      * Creates a new instance of LibrosController
      */
     public LibrosController() {
+        libro = new Libros();
     }
 
     @PostConstruct
@@ -53,6 +53,8 @@ public class LibrosController {
     }
 
     public List<Libros> getListaLibros() {
+        if(listaLibros == null)
+            listaLibros = libDao.selectLibros();
         return listaLibros;
     }
 
